@@ -1,9 +1,13 @@
 package com.sci.demo.controllers;
 
+import com.sci.demo.dto.StudentCreateRequest;
 import com.sci.demo.models.Student;
 import com.sci.demo.services.StudentService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -35,9 +39,14 @@ public class StudentController {
     return studentService.getStudent(id);
   }
 
+  @GetMapping("/name/{name}")
+  public ResponseEntity<?> getStudentByName(@PathVariable String name) {
+    return ResponseEntity.ok(studentService.getStudentByName(name));
+  }
+
   @PostMapping
-  public void addStudent(@RequestBody Student student) {
-    studentService.addStudent(student);
+  public ResponseEntity<?> addStudent(@Valid @RequestBody StudentCreateRequest request) {
+    return new ResponseEntity<>(studentService.addStudent(request), HttpStatus.CREATED);
   }
 
   @PatchMapping("/{id}/name/{name}")
