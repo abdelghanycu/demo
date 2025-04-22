@@ -1,5 +1,7 @@
 package com.sci.demo.dto;
 
+import com.sci.demo.validate.NumberNotDivisibleByFiveConstraint;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,6 +18,15 @@ public class StudentCreateRequest implements Serializable {
 
   @NotNull(message = "ya hag lo sama7t al name hykon required")
   private String name;
-  @Min(value = 1, message = "age cannot be negative")
+//  @Min(value = 1, message = "age cannot be negative")
+  @NumberNotDivisibleByFiveConstraint
   private Integer age;
+
+  @AssertTrue(message = "name cannot be mohsen")
+  private boolean isValidName() {
+    if (name == null) {
+      return true;
+    }
+    return !name.equals("mohsen");
+  }
 }

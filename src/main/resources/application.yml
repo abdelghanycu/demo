@@ -1,0 +1,14 @@
+server:
+  servlet:
+    context-path: /demo
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/college
+    username: postgres
+    password: dbpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

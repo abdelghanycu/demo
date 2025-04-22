@@ -29,11 +29,13 @@ public class StudentService {
   }
 
   public Object addStudent(StudentCreateRequest request) {
-    if (request.getName().equals("mohsen")) {
-      throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Name cannot be mohsen");
-    }
-    Student student = studentRepo.save(new Student(null, request.getName(), request.getAge()));
-    return student;
+//    if (request.getName().equals("mohsen")) {
+//      throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Name cannot be mohsen");
+//    }
+    Student student = new Student();
+    student.setName(request.getName());
+    student.setAge(request.getAge());
+    return studentRepo.save(student);
   }
 
   public void updateStudent(int id, String name) {
